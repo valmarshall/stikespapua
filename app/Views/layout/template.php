@@ -21,7 +21,14 @@
 
 <body>
 
-    <?= $this->renderSection('content'); ?>
+    <div class="probootstrap-page-wrapper">
+
+        <?= $this->include('layout/navbar'); ?>
+
+        <?= $this->renderSection('content'); ?>
+
+    </div>
+    <!-- END wrapper -->
 
     <script src="js/scripts.min.js"></script>
     <script src="js/main.min.js"></script>
