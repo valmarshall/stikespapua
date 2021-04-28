@@ -34,6 +34,12 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
+                        <div class="card-header">
+                            <a href="/admin/user/add" class="btn bg-gradient-primary">
+                                <i class="fas fa-plus-square mr-2"></i>
+                                Tambah User
+                            </a>
+                        </div>
                         <div class="card-body">
                             <table id="usersTable" class="table table-hover">
                                 <thead>

@@ -10,6 +10,15 @@ class Users extends BaseController
             'title' => 'STIKES Papua ~ Admin | User'
         ];
 
-        return view('admin/user.php', $data);
+        return view('admin/user/index.php', $data);
+    }
+
+    public function add()
+    {
+        $data = [
+            'title' => 'STIKES Papua ~ Admin | Tambah User'
+        ];
+
+        return view('admin/user/add.php', $data);
     }
 }
