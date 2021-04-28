@@ -15,12 +15,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Users</h1>
+                    <h1 class="m-0">Roles</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Users</li>
+                        <li class="breadcrumb-item active">Roles</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -35,23 +35,27 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                            <a href="/admin/user/add" class="btn bg-gradient-primary">
+                            <a href="/admin/role/add" class="btn bg-gradient-primary">
                                 <i class="fas fa-plus-square mr-2"></i>
-                                Tambah User
+                                Tambah Role
                             </a>
                         </div>
                         <div class="card-body">
                             <table id="usersTable" class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th>Name</th>
-                                        <th>Alamat</th>
+                                        <th>No</th>
+                                        <th>Role</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>Aldi</td>
-                                        <td>ad</td>
+                                        <td>1</td>
+                                        <td>Developer</td>
+                                        <td>
+                                            <a href="#" class="btn bg-gradient-success">Edit</a>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
