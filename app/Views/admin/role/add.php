@@ -28,7 +28,7 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="card">
-                        <form action="#" method="post">
+                        <form action="/roles/save" method="post">
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="role">Nama Role</label>

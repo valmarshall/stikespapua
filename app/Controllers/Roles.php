@@ -2,8 +2,17 @@
 
 namespace App\Controllers;
 
+use App\Models\RolesModel;
+
 class Roles extends BaseController
 {
+    protected $rolesModel;
+
+    public function __construct()
+    {
+        $this->rolesModel = new RolesModel();
+    }
+
     public function index()
     {
         $data = [
@@ -20,5 +29,14 @@ class Roles extends BaseController
         ];
 
         return view('admin/role/add.php', $data);
+    }
+
+    public function save()
+    {
+        $this->rolesModel->save([
+            'role' => $this->request->getVar('role')
+        ]);
+
+        echo "berhasil";
     }
 }
