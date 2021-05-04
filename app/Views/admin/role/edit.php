@@ -8,13 +8,13 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Tambah Role</h1>
+                    <h1 class="m-0">Edit Role</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
                         <li class="breadcrumb-item"><a href="/admin/role">Roles</a></li>
-                        <li class="breadcrumb-item active">Tambah Role</li>
+                        <li class="breadcrumb-item active">Edit Role</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -28,19 +28,20 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="card">
-                        <form action="/roles/save" method="post">
+                        <form action="/roles/update/<?= $role['id']; ?>" method="post">
                             <?= csrf_field(); ?>
                             <div class="card-body">
+                                <input type="hidden" name="slugLama" value="<?= $role['slug']; ?>">
                                 <div class="form-group">
                                     <label for="role">Nama Role</label>
-                                    <input type="text" class="form-control<?= ($validation->hasError('role')) ? ' is-invalid' : ''; ?>" id="role" name="role" value="<?= old('role'); ?>">
+                                    <input type="text" class="form-control<?= ($validation->hasError('role')) ? ' is-invalid' : ''; ?>" id="role" name="role" value="<?= (old('role')) ? old('role') : $role['role']; ?>" autofocus>
                                     <div class="invalid-feedback">
                                         <?= $validation->getError('role'); ?>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <button type="submit" class="btn bg-gradient-primary">Simpan</button>
+                                <button type="submit" class="btn bg-gradient-success">Ubah</button>
                             </div>
                         </form>
                     </div>

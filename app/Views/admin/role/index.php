@@ -58,13 +58,18 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php $i = 0 ?>
+                                    <?php $i = 1 ?>
                                     <?php foreach ($roles as $r) : ?>
                                         <tr>
                                             <td><?= $i++; ?></td>
                                             <td><?= $r['role']; ?></td>
                                             <td>
-                                                <a href="#" class="btn btn-sm bg-gradient-success">Edit</a>
+                                                <a href="/admin/role/edit/<?= $r['slug']; ?>" class="btn btn-sm bg-gradient-success rounded-pill" data-toggle="tooltip" data-placement="left" title="Edit">
+                                                    <span><i class="fas fa-edit"></i></span>
+                                                </a>
+                                                <a href="#" class="btn btn-sm bg-gradient-danger rounded-pill" data-toggle="tooltip" data-placement="right" title="Hapus">
+                                                    <span><i class="fas fa-trash-alt"></i></span>
+                                                </a>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>

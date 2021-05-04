@@ -48,6 +48,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
     <script src="/admin/dist/js/adminlte.min.js"></script>
+    <script>
+        $(function() {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
     <?= $this->renderSection('additionalJS'); ?>
 </body>
 

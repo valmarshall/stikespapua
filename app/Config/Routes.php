@@ -36,6 +36,7 @@ $routes->get('/admin/user', 'Users::index');
 $routes->get('/admin/user/add', 'Users::add');
 $routes->get('/admin/role', 'Roles::index');
 $routes->get('/admin/role/add', 'Roles::add');
+$routes->get('/admin/role/edit/(:segment)', 'Roles::edit/$1');
 
 /*
  * --------------------------------------------------------------------

@@ -58,4 +58,42 @@ class Roles extends BaseController
 
         return redirect()->to('/admin/role');
     }
+
+    public function edit($slug)
+    {
+        $data = [
+            'title' => 'STIKES Papua ~ Admin | Edit Roles',
+            'role' => $this->rolesModel->getRole($slug),
+            'validation' => \Config\Services::validation()
+        ];
+
+        return view('admin/role/edit.php', $data);
+    }
+
+    public function update($id)
+    {
+        if (!$this->validate([
+            'role' => [
+                'rules' => 'required|is_unique[role.role]',
+                'errors' => [
+                    'required' => 'Nama role harus diisi',
+                    'is_unique' => 'Nama role sudah terdaftar'
+                ]
+            ]
+        ])) {
+            return redirect()->to('/admin/role/edit/' . $this->request->getVar('slugLama'))->withInput();
+        }
+
+        $slug = url_title($this->request->getVar('role'), '-', true);
+
+        $this->rolesModel->save([
+            'id' => $id,
+            'role' => $this->request->getVar('role'),
+            'slug' => $slug
+        ]);
+
+        session()->setFlashdata('pesan', 'Data berhasil diubah');
+
+        return redirect()->to('/admin/role');
+    }
 }
