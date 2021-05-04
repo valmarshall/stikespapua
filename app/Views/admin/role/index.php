@@ -67,9 +67,13 @@
                                                 <a href="/admin/role/edit/<?= $r['slug']; ?>" class="btn btn-sm bg-gradient-success rounded-pill" data-toggle="tooltip" data-placement="left" title="Edit">
                                                     <span><i class="fas fa-edit"></i></span>
                                                 </a>
-                                                <a href="#" class="btn btn-sm bg-gradient-danger rounded-pill" data-toggle="tooltip" data-placement="right" title="Hapus">
-                                                    <span><i class="fas fa-trash-alt"></i></span>
-                                                </a>
+                                                <form action="/admin/role/<?= $r['id']; ?>" method="POST" class="d-inline">
+                                                    <?= csrf_field(); ?>
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <button type="submit" class="btn btn-sm bg-gradient-danger rounded-pill" data-toggle="tooltip" data-placement="right" title="Hapus">
+                                                        <span><i class="fas fa-trash-alt"></i></span>
+                                                    </button>
+                                                </form>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>

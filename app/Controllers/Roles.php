@@ -96,4 +96,13 @@ class Roles extends BaseController
 
         return redirect()->to('/admin/role');
     }
+
+    public function delete($id)
+    {
+        $this->rolesModel->delete($id);
+
+        session()->setFlashdata('pesan', 'Data berhasil diubah');
+
+        return redirect()->to('/admin/role');
+    }
 }
