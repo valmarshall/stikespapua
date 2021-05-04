@@ -8,5 +8,14 @@ class RolesModel extends Model
 {
     protected $table = 'role';
     protected $useTimestamps = true;
-    protected $allowedFields = ['role'];
+    protected $allowedFields = ['role', 'slug'];
+
+    public function getRole($slug = false)
+    {
+        if ($slug == false) {
+            return $this->findAll();
+        }
+
+        return $this->where(['slug' => $slug])->first();
+    }
 }

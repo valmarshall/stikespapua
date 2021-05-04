@@ -32,7 +32,10 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="role">Nama Role</label>
-                                    <input type="text" class="form-control" id="role" name="role">
+                                    <input type="text" class="form-control<?= ($validation->hasError('role')) ? ' is-invalid' : ''; ?>" id="role" name="role" value="<?= old('role'); ?>">
+                                    <div class="invalid-feedback">
+                                        <?= $validation->getError('role'); ?>
+                                    </div>
                                 </div>
                             </div>
                             <div class="card-footer">

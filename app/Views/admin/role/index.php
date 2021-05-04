@@ -33,6 +33,14 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
+                    <?php if (session()->getFlashdata('pesan')) : ?>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>Berhasil!</strong> <?= session()->getFlashdata('pesan'); ?>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    <?php endif; ?>
                     <div class="card">
                         <div class="card-header">
                             <a href="/admin/role/add" class="btn bg-gradient-primary">
@@ -41,7 +49,7 @@
                             </a>
                         </div>
                         <div class="card-body">
-                            <table id="usersTable" class="table table-hover">
+                            <table id="rolesTable" class="table table-hover">
                                 <thead>
                                     <tr>
                                         <th>No</th>
@@ -50,13 +58,16 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Developer</td>
-                                        <td>
-                                            <a href="#" class="btn bg-gradient-success">Edit</a>
-                                        </td>
-                                    </tr>
+                                    <?php $i = 0 ?>
+                                    <?php foreach ($roles as $r) : ?>
+                                        <tr>
+                                            <td><?= $i++; ?></td>
+                                            <td><?= $r['role']; ?></td>
+                                            <td>
+                                                <a href="#" class="btn btn-sm bg-gradient-success">Edit</a>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
                         </div>
@@ -87,7 +98,7 @@
 <script src="/admin/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <script>
     $(document).ready(function() {
-        $('#usersTable').DataTable();
+        $('#rolesTable').DataTable();
     });
 </script>
 <?= $this->endSection(); ?>

@@ -16,7 +16,8 @@ class Roles extends BaseController
     public function index()
     {
         $data = [
-            'title' => 'STIKES Papua ~ Admin | Roles'
+            'title' => 'STIKES Papua ~ Admin | Roles',
+            'roles' => $this->rolesModel->getRole()
         ];
 
         return view('admin/role/index.php', $data);
@@ -25,7 +26,8 @@ class Roles extends BaseController
     public function add()
     {
         $data = [
-            'title' => 'STIKES Papua ~ Admin | Tambah Roles'
+            'title' => 'STIKES Papua ~ Admin | Tambah Roles',
+            'validation' => \Config\Services::validation()
         ];
 
         return view('admin/role/add.php', $data);
@@ -33,10 +35,27 @@ class Roles extends BaseController
 
     public function save()
     {
+        if (!$this->validate([
+            'role' => [
+                'rules' => 'required|is_unique[role.role]',
+                'errors' => [
+                    'required' => 'Nama role harus diisi',
+                    'is_unique' => 'Nama role sudah terdaftar'
+                ]
+            ]
+        ])) {
+            return redirect()->to('/admin/role/add')->withInput();
+        }
+
+        $slug = url_title($this->request->getVar('role'), '-', true);
+
         $this->rolesModel->save([
-            'role' => $this->request->getVar('role')
+            'role' => $this->request->getVar('role'),
+            'slug' => $slug
         ]);
 
-        echo "berhasil";
+        session()->setFlashdata('pesan', 'Data berhasil ditambahkan');
+
+        return redirect()->to('/admin/role');
     }
 }
