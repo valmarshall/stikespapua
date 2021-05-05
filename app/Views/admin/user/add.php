@@ -28,31 +28,63 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="card">
-                        <form action="#" method="post">
+                        <form action="/users/save" method="post">
+                            <?= csrf_field(); ?>
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="nama">Nama Lengkap</label>
-                                    <input type="text" class="form-control" id="nama" name="nama">
+                                    <input type="text" class="form-control<?= ($validation->hasError('nama')) ? ' is-invalid' : ''; ?>" id="nama" name="nama" value="<?= old('nama'); ?>">
+                                    <div class="invalid-feedback">
+                                        <?= $validation->getError('nama'); ?>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="username">Username</label>
-                                    <input type="text" class="form-control" id="username" name="username">
+                                    <input type="text" class="form-control<?= ($validation->hasError('username')) ? ' is-invalid' : ''; ?>" id="username" name="username" value="<?= old('username'); ?>">
+                                    <div class="invalid-feedback">
+                                        <?= $validation->getError('username'); ?>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="role">Role User</label>
+                                    <select name="role" id="role" class="form-control<?= ($validation->hasError('role')) ? ' is-invalid' : ''; ?>">
+                                        <option value="">--Pilih Role User--</option>
+                                        <?php foreach ($roles as $r) : ?>
+                                            <option value="<?= $r['id']; ?>"><?= $r['role']; ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        <?= $validation->getError('role'); ?>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="email">Email</label>
-                                    <input type="text" class="form-control" id="email" name="email">
+                                    <input type="text" class="form-control<?= ($validation->hasError('email')) ? ' is-invalid' : ''; ?>" id="email" name="email" value="<?= old('email'); ?>">
+                                    <div class="invalid-feedback">
+                                        <?= $validation->getError('email'); ?>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="hp">Nomor HP</label>
-                                    <input type="text" class="form-control" id="hp" name="hp">
+                                    <input type="text" class="form-control<?= ($validation->hasError('hp')) ? ' is-invalid' : ''; ?>" id="hp" name="hp" value="<?= old('hp'); ?>">
+                                    <div class="invalid-feedback">
+                                        <?= $validation->getError('hp'); ?>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="password">Password</label>
-                                    <input type="password" class="form-control" id="password" name="password">
+                                    <input type="password" class="form-control<?= ($validation->hasError('password')) ? ' is-invalid' : ''; ?>" id="password" name="password" value="<?= old('password'); ?>">
+                                    <div class="invalid-feedback">
+                                        <?= $validation->getError('password'); ?>
+                                    </div>
+                                    <span><small class="text-muted">*jika dikosongkan akan menggunakan password default (123456)</small></span>
                                 </div>
                                 <div class="form-group">
                                     <label for="repassword">Masukkan Password Kembali</label>
-                                    <input type="password" class="form-control" id="repassword" name="repassword">
+                                    <input type="password" class="form-control<?= ($validation->hasError('repassword')) ? ' is-invalid' : ''; ?>" id="repassword" name="repassword" value="<?= old('repassword'); ?>">
+                                    <div class="invalid-feedback">
+                                        <?= $validation->getError('repassword'); ?>
+                                    </div>
                                 </div>
                             </div>
                             <div class="card-footer">

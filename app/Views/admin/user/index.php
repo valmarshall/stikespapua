@@ -44,15 +44,45 @@
                             <table id="usersTable" class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th>Name</th>
-                                        <th>Alamat</th>
+                                        <th>No.</th>
+                                        <th>Nama Lengkap</th>
+                                        <th>Username</th>
+                                        <th>Role</th>
+                                        <th>Email</th>
+                                        <th>No. HP</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>Aldi</td>
-                                        <td>ad</td>
-                                    </tr>
+                                    <?php $i = 1; ?>
+                                    <?php foreach ($users as $u) : ?>
+                                        <tr>
+                                            <td><?= $i++; ?></td>
+                                            <td><?= $u['nama']; ?></td>
+                                            <td><?= $u['username']; ?></td>
+                                            <td>
+                                                <?php foreach ($roles as $r) : ?>
+                                                    <?php if ($u['id_role'] == $r['id']) : ?>
+                                                        <?= $r['role']; ?>
+                                                    <?php endif; ?>
+                                                <?php endforeach; ?>
+                                            </td>
+                                            <td><?= $u['email']; ?></td>
+                                            <td><?= $u['nohp']; ?></td>
+                                            <td>
+                                                <a href="/admin/user/edit/<?= $u['username']; ?>" class="btn btn-sm bg-gradient-success rounded-pill" data-toggle="tooltip" data-placement="left" title="Edit">
+                                                    <span><i class="fas fa-edit"></i></span>
+                                                </a>
+                                                <form action="/admin/user/<?= $u['id']; ?>" method="POST" class="d-inline">
+                                                    <?= csrf_field(); ?>
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <button type="submit" class="btn btn-sm bg-gradient-danger rounded-pill" data-toggle="tooltip" data-placement="top" title="Hapus">
+                                                        <span><i class="fas fa-trash-alt"></i></span>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
                         </div>
