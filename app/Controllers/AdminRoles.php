@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use App\Models\RolesModel;
 
-class Roles extends BaseController
+class AdminRoles extends BaseController
 {
     protected $rolesModel;
 
