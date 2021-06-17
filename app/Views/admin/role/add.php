@@ -28,7 +28,7 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="card">
-                        <form action="/roles/save" method="post">
+                        <form action="/adminroles/save" method="post">
                             <?= csrf_field(); ?>
                             <div class="card-body">
                                 <div class="form-group">

@@ -18,34 +18,46 @@
             </div>
         </div>
 
+        <?php
+        $uri = new \CodeIgniter\HTTP\URI(current_url());
+        $currentUri = '/admin/' . $uri->getSegment(2);
+        $db = \Config\Database::connect();
+        $builder = $db->table('menu');
+        $activeMenu = $builder->getWhere(['link' => $currentUri])->getRow();
+        ?>
+
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-                <li class="nav-item menu-open">
-                    <a href="#" class="nav-link active">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>
-                            Users
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="/admin/user" class="nav-link active">
-                                <i class="nav-icon fas fa-users"></i>
-                                <p>Daftar User</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/admin/role" class="nav-link">
-                                <i class="nav-icon fas fa-user-tag"></i>
-                                <p>Roles</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                <?php foreach ($menus as $m) : ?>
+                    <?php if ($m['type'] == 'sidebar') : ?>
+                        <?php if ($m['link'] == '#') : ?>
+                            <li class="nav-item <?= ($activeMenu->parent == $m['id']) ? 'menu-open' : ''; ?>">
+                                <a href="<?= $m['link']; ?>" class="nav-link <?= ($activeMenu->parent == $m['id']) ? 'active' : ''; ?>">
+                                    <i class="nav-icon <?= $m['icon']; ?>"></i>
+                                    <p>
+                                        <?= $m['menu']; ?>
+                                        <i class="right <?= $m['link']; ?>"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <?php foreach ($menus as $mc) : ?>
+                                        <?php if ($mc['parent'] == $m['id']) : ?>
+                                            <li class="nav-item">
+                                                <a href="<?= $mc['link']; ?>" class="nav-link <?= ($activeMenu->id == $mc['id']) ? 'active' : ''; ?>">
+                                                    <i class="nav-icon <?= $mc['icon']; ?>"></i>
+                                                    <p><?= $mc['menu']; ?></p>
+                                                </a>
+                                            </li>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                </ul>
+                            </li>
+                        <?php endif; ?>
+                    <?php endif; ?>
+                <?php endforeach; ?>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

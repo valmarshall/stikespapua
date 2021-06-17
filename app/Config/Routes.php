@@ -32,12 +32,15 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
+$routes->get('/dashboard', 'AdminDashboard::index');
 $routes->get('/admin/user', 'AdminUsers::index');
 $routes->get('/admin/user/add', 'AdminUsers::add');
 $routes->get('/admin/user/edit/(:segment)', 'AdminUsers::edit/$1');
 $routes->get('/admin/role', 'AdminRoles::index');
 $routes->get('/admin/role/add', 'AdminRoles::add');
 $routes->get('/admin/role/edit/(:segment)', 'AdminRoles::edit/$1');
+$routes->get('/admin/menu', 'AdminMenus::index');
+$routes->get('/admin/menu/add', 'AdminMenus::add');
 $routes->delete('/admin/role/(:num)', 'AdminRoles::delete/$1');
 $routes->delete('/admin/user/(:num)', 'AdminUsers::delete/$1');
 

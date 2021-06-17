@@ -2,22 +2,26 @@
 
 namespace App\Controllers;
 
+use App\Models\MenusModel;
 use App\Models\RolesModel;
 
 class AdminRoles extends BaseController
 {
     protected $rolesModel;
+    protected $menusModel;
 
     public function __construct()
     {
         $this->rolesModel = new RolesModel();
+        $this->menusModel = new MenusModel();
     }
 
     public function index()
     {
         $data = [
             'title' => 'STIKES Papua ~ Admin | Roles',
-            'roles' => $this->rolesModel->getRole()
+            'roles' => $this->rolesModel->getRole(),
+            'menus' => $this->menusModel->getMenu(),
         ];
 
         return view('admin/role/index.php', $data);
@@ -27,7 +31,8 @@ class AdminRoles extends BaseController
     {
         $data = [
             'title' => 'STIKES Papua ~ Admin | Tambah Roles',
-            'validation' => \Config\Services::validation()
+            'validation' => \Config\Services::validation(),
+            'menus' => $this->menusModel->getMenu(),
         ];
 
         return view('admin/role/add.php', $data);
@@ -64,7 +69,8 @@ class AdminRoles extends BaseController
         $data = [
             'title' => 'STIKES Papua ~ Admin | Edit Roles',
             'role' => $this->rolesModel->getRole($slug),
-            'validation' => \Config\Services::validation()
+            'validation' => \Config\Services::validation(),
+            'menus' => $this->menusModel->getMenu(),
         ];
 
         return view('admin/role/edit.php', $data);

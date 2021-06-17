@@ -28,7 +28,7 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="card">
-                        <form action="/roles/update/<?= $role['id']; ?>" method="post">
+                        <form action="/adminroles/update/<?= $role['id']; ?>" method="post">
                             <?= csrf_field(); ?>
                             <div class="card-body">
                                 <input type="hidden" name="slugLama" value="<?= $role['slug']; ?>">

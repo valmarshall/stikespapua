@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\MenusModel;
 use App\Models\RolesModel;
 use App\Models\UsersModel;
 
@@ -9,11 +10,13 @@ class AdminUsers extends BaseController
 {
     protected $usersModel;
     protected $rolesModel;
+    protected $menusModel;
 
     public function __construct()
     {
         $this->usersModel = new UsersModel();
         $this->rolesModel = new RolesModel();
+        $this->menusModel = new MenusModel();
     }
 
     public function index()
@@ -21,7 +24,8 @@ class AdminUsers extends BaseController
         $data = [
             'title' => 'STIKES Papua ~ Admin | User',
             'users' => $this->usersModel->getUser(),
-            'roles' => $this->rolesModel->getRole()
+            'roles' => $this->rolesModel->getRole(),
+            'menus' => $this->menusModel->getMenu(),
         ];
 
         return view('admin/user/index.php', $data);
@@ -32,7 +36,8 @@ class AdminUsers extends BaseController
         $data = [
             'title' => 'STIKES Papua ~ Admin | Tambah User',
             'roles' => $this->rolesModel->getRole(),
-            'validation' => \Config\Services::validation()
+            'validation' => \Config\Services::validation(),
+            'menus' => $this->menusModel->getMenu(),
         ];
 
         return view('admin/user/add.php', $data);
@@ -154,7 +159,8 @@ class AdminUsers extends BaseController
             'title' => 'STIKES Papua ~ Admin | Edit User',
             'roles' => $this->rolesModel->getRole(),
             'user' => $this->usersModel->getUser($username),
-            'validation' => \Config\Services::validation()
+            'validation' => \Config\Services::validation(),
+            'menus' => $this->menusModel->getMenu(),
         ];
 
         return view('admin/user/edit.php', $data);
