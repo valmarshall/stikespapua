@@ -39,7 +39,7 @@
                                     <i class="nav-icon <?= $m['icon']; ?>"></i>
                                     <p>
                                         <?= $m['menu']; ?>
-                                        <i class="right <?= $m['link']; ?>"></i>
+                                        <i class="right fas fa-angle-left"></i>
                                     </p>
                                 </a>
                                 <ul class="nav nav-treeview">
@@ -54,6 +54,15 @@
                                         <?php endif; ?>
                                     <?php endforeach; ?>
                                 </ul>
+                            </li>
+                        <?php elseif ($m['parent'] == '' && $m['link'] != '#') : ?>
+                            <li class="nav-item">
+                                <a href="<?= $m['link']; ?>" class="nav-link <?= ($activeMenu->id == $m['id']) ? 'active' : ''; ?>">
+                                    <i class="nav-icon <?= $m['icon']; ?>"></i>
+                                    <p>
+                                        <?= $m['menu']; ?>
+                                    </p>
+                                </a>
                             </li>
                         <?php endif; ?>
                     <?php endif; ?>

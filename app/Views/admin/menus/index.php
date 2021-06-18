@@ -19,7 +19,7 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="/admin/dashboard">Dashboard</a></li>
                         <li class="breadcrumb-item active">Menus</li>
                     </ol>
                 </div><!-- /.col -->
@@ -36,6 +36,14 @@
                     <?php if (session()->getFlashdata('pesan')) : ?>
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                             <strong>Berhasil!</strong> <?= session()->getFlashdata('pesan'); ?>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    <?php endif; ?>
+                    <?php if (session()->getFlashdata('pesanError')) : ?>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>Gagal!</strong> <?= session()->getFlashdata('pesanError'); ?>
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -73,14 +81,14 @@
                                             <td><?= $m['parent']; ?></td>
                                             <td><?= $m['icon']; ?></td>
                                             <td>
-                                                <a href="#" class="btn btn-sm bg-gradient-info rounded-pill"><i class="fas fa-arrow-up"></i></a>
-                                                <a href="#" class="btn btn-sm bg-gradient-info rounded-pill"><i class="fas fa-arrow-down"></i></a>
+                                                <a href="/adminmenus/orderup/<?= $m['id']; ?>" class="btn btn-sm bg-gradient-info rounded-pill" data-toggle="tooltip" data-placement="left" title="Naikkan Urutan"><i class="fas fa-arrow-up"></i></a>
+                                                <a href="/adminmenus/orderdown/<?= $m['id']; ?>" class="btn btn-sm bg-gradient-info rounded-pill" data-toggle="tooltip" data-placement="left" title="Turunkan Urutan"><i class="fas fa-arrow-down"></i></a>
                                             </td>
                                             <td>
-                                                <a href="/admin/role/edit/<?= $m['slug']; ?>" class="btn btn-sm bg-gradient-success rounded-pill" data-toggle="tooltip" data-placement="left" title="Edit">
+                                                <a href="/admin/menu/edit/<?= $m['slug']; ?>" class="btn btn-sm bg-gradient-success rounded-pill" data-toggle="tooltip" data-placement="left" title="Edit">
                                                     <span><i class="fas fa-edit"></i></span>
                                                 </a>
-                                                <form action="/admin/role/<?= $m['id']; ?>" method="POST" class="d-inline">
+                                                <form action="/admin/menu/<?= $m['id']; ?>" method="POST" class="d-inline">
                                                     <?= csrf_field(); ?>
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     <button type="submit" class="btn btn-sm bg-gradient-danger rounded-pill" data-toggle="tooltip" data-placement="right" title="Hapus">

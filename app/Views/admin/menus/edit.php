@@ -8,13 +8,13 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Tambah Menu</h1>
+                    <h1 class="m-0">Edit Menu</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="/admin/dashboard">Dashboard</a></li>
                         <li class="breadcrumb-item"><a href="/admin/menu">Menus</a></li>
-                        <li class="breadcrumb-item active">Tambah Menu</li>
+                        <li class="breadcrumb-item active">Edit Menu</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -28,19 +28,19 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="card">
-                        <form action="/adminmenus/save" method="post">
+                        <form action="/adminmenus/update" method="post">
                             <?= csrf_field(); ?>
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="menu">Nama Menu</label>
-                                    <input type="text" class="form-control<?= ($validation->hasError('menu')) ? ' is-invalid' : ''; ?>" id="menu" name="menu" value="<?= old('menu'); ?>">
+                                    <input type="text" class="form-control<?= ($validation->hasError('menu')) ? ' is-invalid' : ''; ?>" id="menu" name="menu" value="<?= (old('menu')) ? old('menu') : $menu['menu']; ?>">
                                     <div class="invalid-feedback">
                                         <?= $validation->getError('menu'); ?>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="link">Link URL Menu</label>
-                                    <input type="text" class="form-control<?= ($validation->hasError('link')) ? ' is-invalid' : ''; ?>" id="link" name="link" value="<?= old('link'); ?>">
+                                    <input type="text" class="form-control<?= ($validation->hasError('link')) ? ' is-invalid' : ''; ?>" id="link" name="link" value="<?= (old('link')) ? old('link') : $menu['link']; ?>">
                                     <div class="invalid-feedback">
                                         <?= $validation->getError('link'); ?>
                                     </div>
@@ -49,8 +49,8 @@
                                     <label for="type">Tipe Menu</label>
                                     <select name="type" id="type" class="form-control <?= ($validation->hasError('type')) ? 'is-invalid' : ''; ?>">
                                         <option value="">--Pilih Tipe--</option>
-                                        <option value="sidebar">Sidebar</option>
-                                        <option value="topbar">Topbar</option>
+                                        <option value="sidebar" <?= ($menu['type'] == 'sidebar') ? 'selected' : ''; ?>>Sidebar</option>
+                                        <option value="topbar" <?= ($menu['type'] == 'topbar') ? 'selected' : ''; ?>>Topbar</option>
                                     </select>
                                     <div class="invalid-feedback">
                                         <?= $validation->getError('type'); ?>

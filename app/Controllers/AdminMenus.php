@@ -26,7 +26,7 @@ class AdminMenus extends BaseController
     public function add()
     {
         $data = [
-            'title' => 'STIKES Papua ~ Admin | Menus',
+            'title' => 'STIKES Papua ~ Admin | Tambah Menu',
             'menus' => $this->menusModel->getMenu(),
             'validation' => \Config\Services::validation()
         ];
@@ -87,5 +87,72 @@ class AdminMenus extends BaseController
         session()->setFlashdata('pesan', 'Data berhasil ditambahkan');
 
         return redirect()->to('/admin/menu');
+    }
+
+    public function orderUp($id)
+    {
+        $menu = $this->menusModel->find($id);
+        $urutanSebelum = $menu['urutan'] - 1;
+
+        if ($urutanSebelum == 0) {
+            session()->setFlashdata('pesanError', 'Menu ini yang paling atas');
+
+            return redirect()->to('/admin/menu');
+        }
+
+        $menuSebelum = $this->menusModel->where(['urutan' => $urutanSebelum])->first();
+
+        $this->menusModel->save([
+            'id' => $menuSebelum['id'],
+            'urutan' => $menuSebelum['urutan'] + 1
+        ]);
+
+        $this->menusModel->save([
+            'id' => $menu['id'],
+            'urutan' => $menu['urutan'] - 1
+        ]);
+
+        session()->setFlashdata('pesan', 'Menu berhasil dinaikkan');
+
+        return redirect()->to('/admin/menu');
+    }
+
+    public function orderDown($id)
+    {
+        $menu = $this->menusModel->find($id);
+        $urutanSetelah = $menu['urutan'] + 1;
+        $menuSetelah = $this->menusModel->where(['urutan' => $urutanSetelah])->first();
+
+        if (!$menuSetelah) {
+            session()->setFlashdata('pesanError', 'Menu ini yang paling bawah');
+
+            return redirect()->to('/admin/menu');
+        }
+
+        $this->menusModel->save([
+            'id' => $menuSetelah['id'],
+            'urutan' => $menuSetelah['urutan'] - 1
+        ]);
+
+        $this->menusModel->save([
+            'id' => $menu['id'],
+            'urutan' => $menu['urutan'] + 1
+        ]);
+
+        session()->setFlashdata('pesan', 'Menu berhasil diturunkan');
+
+        return redirect()->to('/admin/menu');
+    }
+
+    public function edit($slug)
+    {
+        $data = [
+            'title' => 'STIKES Papua ~ Admin | Edit Menu',
+            'menus' => $this->menusModel->getMenu(),
+            'menu' => $this->menusModel->getMenu($slug),
+            'validation' => \Config\Services::validation()
+        ];
+
+        return view('admin/menus/edit', $data);
     }
 }
