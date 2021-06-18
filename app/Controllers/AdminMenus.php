@@ -155,4 +155,59 @@ class AdminMenus extends BaseController
 
         return view('admin/menus/edit', $data);
     }
+
+    public function update($id)
+    {
+        $menu = $this->menusModel->find($id);
+        if ($menu['menu'] == $this->request->getVar('menu')) {
+            $menuRule = 'required';
+        } else {
+            $menuRule = 'required|is_unique[menu.menu]';
+        }
+        if (!$this->validate([
+            'menu' => [
+                'rules' => $menuRule,
+                'errors' => [
+                    'required' => 'Nama menu harus diisi',
+                    'is_unique' => 'Nama menu sudah ada'
+                ]
+            ],
+            'link' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Link menu harus diisi'
+                ]
+            ],
+            'type' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Tipe menu harus dipilih'
+                ]
+            ],
+            'icon' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Icon menu harus diisi'
+                ]
+            ],
+        ])) {
+            return redirect()->to('/admin/menu/edit/' . $menu['slug'])->withInput();
+        }
+
+        $slug = url_title($this->request->getVar('menu'), '-', true);
+
+        $this->menusModel->save([
+            'id' => $id,
+            'menu' => $this->request->getVar('menu'),
+            'slug' => $slug,
+            'link' => $this->request->getVar('link'),
+            'type' => $this->request->getVar('type'),
+            'parent' => $this->request->getVar('parent'),
+            'icon' => $this->request->getVar('icon')
+        ]);
+
+        session()->setFlashdata('pesan', 'Data berhasil diubah');
+
+        return redirect()->to('/admin/menu');
+    }
 }

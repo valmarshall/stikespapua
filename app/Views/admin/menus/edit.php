@@ -28,7 +28,7 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="card">
-                        <form action="/adminmenus/update" method="post">
+                        <form action="/adminmenus/update/<?= $menu['id']; ?>" method="post">
                             <?= csrf_field(); ?>
                             <div class="card-body">
                                 <div class="form-group">
@@ -62,7 +62,7 @@
                                         <option value="">Tidak ada parent</option>
                                         <?php foreach ($menus as $m) : ?>
                                             <?php if ($m['link'] == "#") : ?>
-                                                <option value="<?= $m['id']; ?>"><?= $m['menu']; ?></option>
+                                                <option value="<?= $m['id']; ?>" <?= ($m['id'] == $menu['parent']) ? 'selected' : ''; ?>><?= $m['menu']; ?></option>
                                             <?php endif; ?>
                                         <?php endforeach; ?>
                                     </select>
@@ -72,7 +72,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="icon">Class Icon</label>
-                                    <input type="text" class="form-control<?= ($validation->hasError('icon')) ? ' is-invalid' : ''; ?>" id="icon" name="icon" value="<?= old('icon'); ?>">
+                                    <input type="text" class="form-control<?= ($validation->hasError('icon')) ? ' is-invalid' : ''; ?>" id="icon" name="icon" value="<?= (old('icon')) ? old('icon') : $menu['icon']; ?>">
                                     <small class="text-muted">*ambil class dari FontAwesome (contoh : fas fa-user)</small>
                                     <div class="invalid-feedback">
                                         <?= $validation->getError('icon'); ?>
